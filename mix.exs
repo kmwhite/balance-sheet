@@ -16,6 +16,7 @@ defmodule BalanceSheet.Mixfile do
   def application do
     [
       applications: [
+        :absinthe_plug,
         :cowboy,
         :plug
       ],
@@ -35,6 +36,7 @@ defmodule BalanceSheet.Mixfile do
   # Type "mix help deps" for more examples and options
   defp deps do
     [
+      {:absinthe_plug, "~> 1.2.3"},
       {:cowboy, "~> 1.1.2"},
       {:poison, "~> 1.3.0"},
       {:plug, "~> 1.3.3"}
