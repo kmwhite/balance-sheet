@@ -32,7 +32,7 @@ defmodule BalanceSheet.Router do
   end
 
   match _ do
-    Logger.info('Catch all triggered. Returning 404')
+    Logger.info("Catch all triggered. Returning 404")
 
     conn
     |> send_resp(404, "Oops!")
