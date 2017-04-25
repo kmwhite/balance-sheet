@@ -21,7 +21,7 @@ defmodule BalanceSheet.Mixfile do
         :moebius,
         :plug
       ],
-      extra_applications: [:logger],
+      extra_applications: [:logger, :observer],
       mod: {BalanceSheet, []}
     ]
   end
