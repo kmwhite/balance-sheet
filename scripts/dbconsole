@@ -1,3 +1,11 @@
 #!/usr/bin/env bash
 
-pgcli -h 127.0.0.1 -p 5432 -U balance_sheet -W -d balance_sheet_dev
+PGCLI_BIN="$(which pgcli)"
+
+if [ -x "$PGCLI_BIN" ]; then
+	$PGCLI_BIN -h 127.0.0.1 -p 5432 -U balance_sheet -d balance_sheet_dev
+else
+	echo "PGCLI_BIN must be installed."
+	echo "pip install --user pgcli"
+	exit 1
+fi
