@@ -5,12 +5,15 @@ defmodule BalanceSheet do
 
   use Application
 
+  import Supervisor.Spec
+
   require BalanceSheet.Router
   require Logger
 
   def start(_type, _args) do
     children = [
-      Plug.Adapters.Cowboy.child_spec(:http, BalanceSheet.Router, [], [port: 8080])
+      Plug.Adapters.Cowboy.child_spec(:http, BalanceSheet.Router, [], [port: 8080]),
+      worker(BalanceSheet.Db, [Moebius.get_connection])
     ]
 
     Logger.info "Started BalanceSheet"

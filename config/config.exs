@@ -21,6 +21,13 @@ use Mix.Config
 config :logger, level: :debug
 config :logger, :console, metadata: [:request_id]
 
+config :moebius, scripts: "test/db", connection: [ hostname: "localhost",
+                                                   port:     5432,
+                                                   username: "balance_sheet",
+                                                   password: "password",
+                                                   database: "balance_sheet_dev" ]
+
+
 # It is also possible to import configuration files, relative to this
 # directory. For example, you can emulate configuration per environment
 # by uncommenting the line below and defining dev.exs, test.exs and such.
