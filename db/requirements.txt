@@ -1,0 +1,2 @@
+pgxnclient~=1.2.0
+pgcli~=1.5.0
