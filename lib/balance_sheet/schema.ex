@@ -8,7 +8,7 @@ defmodule BalanceSheet.Schema do
   def health_check(_, args, _) do
     resp = %{status: :healthy, message: inspect(args)}
 
-    Logger.info("Receieved a #{inspect(resp)}")
+    Logger.info("healthCheck returning a #{inspect(resp)}")
     {:ok, resp}
   end
 

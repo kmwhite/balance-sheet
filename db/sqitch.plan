@@ -1,0 +1,4 @@
+%syntax-version=1.0.0
+%project=balance-sheet
+
+create_app_schema 2017-04-07T22:04:39Z Kristofer M White <me@kmwhite.net> # Create SCHEMA for all BalanceSheet objects
