@@ -29,7 +29,7 @@ defmodule BalanceSheet.AccountControllerTest do
 
   test "renders page not found when id is nonexistent", %{conn: conn} do
     assert_error_sent 404, fn ->
-      get conn, account_path(conn, :show, Ecto.UUID.generate)
+      get conn, account_path(conn, :show, Ecto.UUID.generate())
     end
   end
 
