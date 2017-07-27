@@ -12,8 +12,8 @@ config :logger, level: :warn
 # Configure your database
 config :balance_sheet, BalanceSheet.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
+  username: "balance_sheet",
+  password: "password",
   database: "balance_sheet_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
