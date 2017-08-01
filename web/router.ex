@@ -24,5 +24,6 @@ defmodule BalanceSheet.Router do
     pipe_through :api
     resources "/accounts", AccountController, except: [:new, :edit]
     resources "/tags", TagController, except: [:new, :edit]
+    resources "/transactions", TransactionController, except: [:new, :edit]
   end
 end
