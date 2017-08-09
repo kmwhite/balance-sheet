@@ -12,7 +12,7 @@ defmodule BalanceSheet.TransactionTest do
   }
   @invalid_attrs %{type: 'orangutan'}
 
-  setup context do
+  setup _context do
     account = Repo.insert!(struct(BalanceSheet.Account, %{
       description: Faker.Lorem.paragraph(1),
       name: Faker.Lorem.sentence(%Range{first: 1, last: 10}),

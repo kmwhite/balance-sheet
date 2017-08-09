@@ -11,7 +11,7 @@ defmodule BalanceSheet.Repo.Migrations.CreateTransaction do
       add :amount, :decimal, null: false
       add :type, :transaction_type, null: false
       add :status, :transaction_status, null: false
-      add :account_id, references(:accounts, on_delete: :nothing, type: :uuid)
+      add :account_id, references(:accounts, on_delete: :nothing, type: :uuid), null: false
       add :tag_id, references(:tags, on_delete: :nothing, type: :uuid)
 
       timestamps()
