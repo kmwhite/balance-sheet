@@ -27,6 +27,8 @@ defmodule BalanceSheet.ConnCase do
 
       import BalanceSheet.Router.Helpers
 
+      require IEx
+
       # The default endpoint for testing
       @endpoint BalanceSheet.Endpoint
     end

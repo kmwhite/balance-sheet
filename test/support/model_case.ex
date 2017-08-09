@@ -22,6 +22,8 @@ defmodule BalanceSheet.ModelCase do
       import Ecto.Changeset
       import Ecto.Query
       import BalanceSheet.ModelCase
+
+      require IEx
     end
   end
 
