@@ -4,7 +4,7 @@ defmodule BalanceSheet.Mixfile do
   def project do
     [app: :balance_sheet,
      version: "0.0.1",
-     elixir: "~> 1.2",
+     elixir: "~> 1.3",
      elixirc_paths: elixirc_paths(Mix.env),
      compilers: [:phoenix, :gettext] ++ Mix.compilers,
      build_embedded: Mix.env == :prod,
@@ -30,7 +30,7 @@ defmodule BalanceSheet.Mixfile do
   #
   # Type `mix help deps` for examples and options.
   defp deps do
-    [{:phoenix, "~> 1.2.4"},
+    [{:phoenix, "~> 1.2.5"},
      {:phoenix_pubsub, "~> 1.0"},
      {:phoenix_ecto, "~> 3.0"},
      {:ecto_enum, "~> 1.0"},
