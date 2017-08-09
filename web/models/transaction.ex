@@ -5,10 +5,10 @@ defmodule BalanceSheet.Transaction do
     field :name, :string
     field :occurred_on, Ecto.Date
     field :amount, :decimal
-    field :account_id, Ecto.UUID
-    field :tag_id, Ecto.UUID
     field :type, BalanceSheet.Enumerations.TransactionType
     field :status, BalanceSheet.Enumerations.TransactionStatus
+    belongs_to :account, BalanceSheet.Account
+    belongs_to :tag, BalanceSheet.Tag
 
     timestamps()
   end
