@@ -25,5 +25,6 @@ defmodule BalanceSheet.Router do
     resources "/accounts", AccountController, except: [:new, :edit]
     resources "/tags", TagController, except: [:new, :edit]
     resources "/transactions", TransactionController, except: [:new, :edit]
+    resources "/milestones", MilestoneController, except: [:new, :edit]
   end
 end
