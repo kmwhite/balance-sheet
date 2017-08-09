@@ -1,4 +1,4 @@
-# BalanceSheet
+# BalanceSheet [![Build Status](https://travis-ci.org/kmwhite/balance-sheet.svg?branch=phoenix)](https://travis-ci.org/kmwhite/balance-sheet)
 
 To start your Phoenix app:
 
