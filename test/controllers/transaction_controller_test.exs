@@ -19,8 +19,9 @@ defmodule BalanceSheet.TransactionControllerTest do
       name: Faker.Lorem.sentence(%Range{first: 1, last: 10}),
       type: Enum.random(BalanceSheet.Enumerations.AccountType.__valid_values__())
     }))
+    attributes = Map.merge(@valid_attrs, %{account_id: Map.get(account, :id)})
 
-    {:ok, conn: new_conn, account: account}
+    {:ok, conn: new_conn, attributes: attributes}
   end
 
   test "lists all entries on index", context do
@@ -28,13 +29,22 @@ defmodule BalanceSheet.TransactionControllerTest do
     assert json_response(conn, 200)["data"] == []
   end
 
-  @tag :skip
-  test "shows chosen resource", %{conn: conn} do
-    transaction = Repo.insert!(struct(Transaction, @valid_attrs))
+  test "shows chosen resource", %{conn: conn, attributes: attributes} do
+    transaction = Repo.insert!(struct(Transaction, attributes))
+
     conn = get conn, transaction_path(conn, :show, transaction)
-    Enum.each(~w(name occurred_on amount account_id tag_id), fn(param) ->
-      assert json_response(conn, 200)["data"][param] == transaction[param]
+    received = json_response(conn, 200)["data"]
+
+    Enum.each(~w(name account_id tag_id), fn(param) ->
+      actual = received[param]
+      expected = Map.get(transaction, String.to_atom(param))
+      message = "Failure matching on #{param}. Got(#{actual}), but Expected(#{expected})"
+
+      assert(expected == actual, message)
     end)
+
+    assert(Ecto.Date.to_iso8601(transaction.occurred_on) == received["occurred_on"])
+    assert(Decimal.to_string(transaction.amount) == received["amount"])
   end
 
   test "renders page not found when id is nonexistent", %{conn: conn} do
@@ -43,11 +53,10 @@ defmodule BalanceSheet.TransactionControllerTest do
     end
   end
 
-  @tag :skip
-  test "creates and renders resource when data is valid", %{conn: conn} do
-    conn = post conn, transaction_path(conn, :create), transaction: @valid_attrs
+  test "creates and renders resource when data is valid", %{conn: conn, attributes: attributes} do
+    conn = post conn, transaction_path(conn, :create), transaction: attributes
     assert json_response(conn, 201)["data"]["id"]
-    assert Repo.get_by(Transaction, @valid_attrs)
+    assert Repo.get_by(Transaction, attributes)
   end
 
   test "does not create resource and renders errors when data is invalid", %{conn: conn} do
@@ -55,22 +64,21 @@ defmodule BalanceSheet.TransactionControllerTest do
     assert json_response(conn, 422)["errors"] != %{}
   end
 
-  @tag :skip
-  test "updates and renders chosen resource when data is valid", %{conn: conn} do
-    transaction = Repo.insert!(struct(Transaction, @valid_attrs))
-    conn = put conn, transaction_path(conn, :update, transaction), transaction: @valid_attrs
+  test "updates and renders chosen resource when data is valid", %{conn: conn, attributes: attributes} do
+    transaction = Repo.insert!(struct(Transaction, attributes))
+    conn = put conn, transaction_path(conn, :update, transaction), transaction: attributes
     assert json_response(conn, 200)["data"]["id"]
-    assert Repo.get_by(Transaction, @valid_attrs)
+    assert Repo.get_by(Transaction, attributes)
   end
 
-  test "does not update chosen resource and renders errors when data is invalid", %{conn: conn} do
-    transaction = Repo.insert!(struct(Transaction, @valid_attrs))
+  test "does not update chosen resource and renders errors when data is invalid", %{conn: conn, attributes: attributes} do
+    transaction = Repo.insert!(struct(Transaction, attributes))
     conn = put conn, transaction_path(conn, :update, transaction), transaction: @invalid_attrs
     assert json_response(conn, 422)["errors"] != %{}
   end
 
-  test "deletes chosen resource", %{conn: conn} do
-    transaction = Repo.insert!(struct(Transaction, @valid_attrs))
+  test "deletes chosen resource", %{conn: conn, attributes: attributes} do
+    transaction = Repo.insert!(struct(Transaction, attributes))
     conn = delete conn, transaction_path(conn, :delete, transaction)
     assert response(conn, 204)
     refute Repo.get(Transaction, transaction.id)
